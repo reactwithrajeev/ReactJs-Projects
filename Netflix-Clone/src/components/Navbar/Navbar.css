@@ -1,0 +1,11 @@
+#signOutBtn{
+    display: none;
+}
+#dropDownBtn{
+    cursor: pointer;
+}
+
+#dropDownBtn:hover #signOutBtn{
+    display: block;
+
+}

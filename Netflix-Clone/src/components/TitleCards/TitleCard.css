@@ -1,0 +1,4 @@
+#cardBox::-webkit-scrollbar{
+    display: none;
+    height: 0;
+}
