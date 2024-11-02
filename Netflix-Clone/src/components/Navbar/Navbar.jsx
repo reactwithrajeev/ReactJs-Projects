@@ -28,12 +28,12 @@ function Navbar() {
   },[])
 
   return (
-    <div className='w-full py-5 px-12 flex items-center justify-between fixed top-0 z-10' ref={navRef}>
+    <div className='w-full py-5 px-12 flex items-center justify-between fixed top-0 z-10 ' ref={navRef}>
       <div className='flex items-center gap-10 '>
         <div>
           <img className='w-28' src={logo} alt="logo" />
         </div>
-        <div>
+        <div id="MenuLinks">
           <ul className='flex items-center justify-center gap-5'>
             <li className='text-gray-300 cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-90 hover:text-white'>Home</li>
             <li className='text-gray-300 cursor-pointer transition ease-in-out hover:-translate-y-1 hover:scale-90 hover:text-white'>TV Shows</li>
@@ -51,10 +51,8 @@ function Navbar() {
         <div className='flex items-center justify-center gap-1 relative' id="dropDownBtn">
         <img src={profile_img} alt="Profile Image" className='' />
         <img src={caret_icon} alt="drop Down"  className='cursor-pointer' />
-        <div className='w-[180px] bg-slate-800 p-2  absolute bottom-[-45px] right-[-15px]' id="signOutBtn">
-            <NavLink onClick={logout}><p className='underline text-gray-200 rounded-lg text-center'>Sign Out Of Netflix</p></NavLink>
         </div>
-        </div>
+        <button onClick={logout} className='p-2 bg-red-600 text-white rounded-xl cursor-pointer ' >Sign Out</button>
       </div>
     </div>
   )
