@@ -1,0 +1,29 @@
+
+.menuIcon:hover{
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+}
+
+.menuLinksName{
+    color: rgb(191, 191, 191);
+    cursor: pointer;
+    transition: all 0.5s linear;
+    margin-left: 5px;
+    visibility: hidden;
+    opacity: 0;
+}
+.menuItems:hover{
+    background-color: rgba(0, 0, 0, 0.427) ;
+    width: 100%;
+}
+.menuItems:hover .menuLinksName{
+    color: rgb(162, 160, 160);
+    visibility: visible;
+    opacity: 1;
+    font-size: 20px;
+}
+
+.logOutIcon{
+    cursor: pointer;
+    
+}

@@ -1,0 +1,15 @@
+#hero-movie-section-child-child-img{
+    position: absolute;
+    mask-image: linear-gradient(to left, #ebe7e7 10%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to left, #f9f6f6 10%, transparent 100%);
+    z-index: 1;
+    
+}
+
+#hero-movie-section-child-child{
+    z-index: 2;
+}
+
+#hero-movie-section::-webkit-scrollbar{
+    display: none;
+}
