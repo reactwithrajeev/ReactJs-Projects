@@ -15,16 +15,16 @@ function HomePage() {
     navigate('/player/123');
   }
   return (
-    <div className="w-full ">
+    <div className="w-full  ">
       <Navbar />
-      <div className="w-full relative">
+      <div className="w-full relative" id="heroBannerContainer">
         <img
           src={hero_banner}
           alt="banner"
           className="w-full object-cover -z-1"
           id="heroBanner"
         />
-        <div className="absolute top-36 w-[700px] left-20">
+        <div className="absolute top-36 w-[700px] left-20" id="heroTitleContainer">
           <img src={hero_title} alt="title" className="" />
           <h1 className="py-2 text-[25px]">GOAT - The Greatest of All Time</h1>
           <p>
@@ -32,7 +32,7 @@ function HomePage() {
             but years after retiring, one mission brings his past back to haunt
             him and his family.
           </p>
-          <div className="flex items-center justify-start py-5 gap-4 ">
+          <div className="flex items-center justify-start py-5 gap-4 " id="heroTitleButtons" >
             <button onClick={handlePlay} className="py-2 cursor-pointer hover:-translate-y-1 hover:scale-90 transition ease-in-out hover:bg-slate-300 px-10 text-lg  bg-white rounded border-none outline-none text-black flex items-center justify-center gap-3">
               <img className="w-[25px] " src={play_icon} alt="play icon" />
               Play
