@@ -12,11 +12,13 @@ import CartProvider from "./store/cartContext";
 import Orders from './pages/Orders'
 import PlaceOrder from './pages/PlaceOrder';
 // import SearchBar from "./components/SearchBar/SearchBar";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
     <CartProvider>
-        
+        <ToastContainer/>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />

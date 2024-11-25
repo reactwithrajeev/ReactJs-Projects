@@ -1,85 +1,108 @@
-import React, { useContext, useEffect } from "react";
-import { FaStar } from "react-icons/fa";
-import {ShopContext} from '../store/shopContext'
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+import { ShopContext } from "../store/shopContext";
+import "../App.css";
+import { assets } from "../assets/frontend_assets/assets";
+import RelatedProduct from "../components/RealatedProduct/RelatedProduct";
 
 const Product = () => {
-  const {products} = useContext(ShopContext)
-  let {productId}= useParams()
-  let showProduct = products.find((item)=> item._id===productId);
-  useEffect(()=>{
-    console.log(productId)
-  })
-  
+  const { productId } = useParams();
+  const { products, currency,addToCart } = useContext(ShopContext);
+  const [productData, setProductData] = useState(false);
+  const [image, setImage] = useState("");
+  const [sizes, setSizes] = useState("");
 
-  if (!showProduct) {
-    return <p>Product not found</p>;
-  }
+  const fetchProdData = async () => {
+    const item = products.find((item) => item._id === productId);
+    if (item) {
+      setProductData(item);
+      setImage(item.image[0]);
+    }
+  };
+  useEffect(() => {
+    fetchProdData();
+  }, [productId, products]);
 
-  return (
-    <div className="w-full flex flex-col items-center justify-center">
-      <div className="w-full p-10 flex items-center justify-center gap-3">
-        <div className="w-[40%] h-full flex gap-4">
-          <div className="w-[25%] h-full">
-            {showProduct.image?.map((image, index) => (
-              <img key={index} src={image} className="mb-2 h-[110px]" />
+  return productData ? (
+    <div className="flex flex-col items-center justify-center px-20 border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
+      <div className="  flex gap-12 flex-col sm:flex-row  ml-10 sm:ml-20">
+        <div className="flex-1 flex flex-row gap-3">
+          <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal w-[20%] scrollbar-hide">
+            {productData.image.map((item, index) => (
+              <img
+                src={item}
+                key={index}
+                className="w-[14%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer"
+                onClick={() => setImage(item)}
+                alt={`Product view ${index + 1}`}
+              />
             ))}
           </div>
-          <div className="w-[75%]">
-            <img src={showProduct.image?.[0]} />
+          <div className="w-[80%]">
+            <img src={image} alt="" className="w-full h-auto" />
           </div>
         </div>
-        <div className="w-[40%] flex flex-col gap-4">
-          <h1 className="text-4xl font-semibold">{showProduct.name}</h1>
-          <div className="flex items-center gap-2">
-            <div className="flex text-orange-500 gap-2">
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
-              <FaStar />
+        <div className="flex-1">
+          <h1 className="font-medium text-2xl mt-2">{productData.name}</h1>
+          <div className="flex items-center gap-1 mt-2">
+            <img src={assets.star_icon} alt="" className="w-3 5" />
+            <img src={assets.star_icon} alt="" className="w-3 5" />
+            <img src={assets.star_icon} alt="" className="w-3 5" />
+            <img src={assets.star_icon} alt="" className="w-3 5" />
+            <img src={assets.star_dull_icon} alt="" className="w-3 5" />
+            <p className="p1-2">(122)</p>
+          </div>
+          <p className="mt-5 text-3xl font-medium">
+            {currency}
+            {productData.price}
+          </p>
+          <p className="mt-5 text-gray-500 md:w-4/5">
+            {productData.description}
+          </p>
+          <div className="flex flex-col gap-4 my-8">
+            <p>Select Size</p>
+            <div className="flex gap-2">
+              {productData.sizes.map((item, index) => (
+                <button
+                  onClick={() => setSizes(item)}
+                  className={`border py-2 px-4 bg-gray-100 ${
+                    item === sizes ? "border-red-600" : ""
+                  }`}
+                  key={index}
+                >
+                  {item}
+                </button>
+              ))}
             </div>
-            <p>(122)</p>
           </div>
-          <h1 className="text-3xl font-semibold">₹ {showProduct.price}</h1>
-          <p>{showProduct.description}</p>
-          <h5 className="font-semibold">Select Size</h5>
-          <div className="flex gap-4">
-            {["S", "M", "L", "XL", "XXL"].map((size) => (
-              <button
-                key={size}
-                className="p-2 border-2 border-black w-[55px] rounded-lg"
-              >
-                {size}
-              </button>
-            ))}
-          </div>
-          <button
-            className="border w-[150px] p-5 bg-black text-white cursor-pointer"
-          >
-            ADD TO CART
+          <button onClick={()=>addToCart(productData._id, sizes)} className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700">
+            Add To Cart
           </button>
-          <div className="flex flex-col gap-3 border-t-2 pt-4">
+          <hr className="mt-8 sm:w-4/5 " />
+          <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">
             <p>100% Original Product</p>
-            <p>Cash on delivery is available on this product.</p>
-            <p>Easy return and exchange policy within 7 days.</p>
+            <p>Cash On Delivery Is Available On This product</p>
+            <p>Easy Return And Exchange Pollicy Within 7 Days</p>
           </div>
         </div>
       </div>
-      <div>
-        <h1 className="text-2xl font-semibold">Description</h1>
-        <p className="mt-3 w-[80%]">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea cum quia
-          tempore odio voluptates temporibus aspernatur totam neque illum,
-          magni minus officia corporis!
-        </p>
-        <p className="mt-3 w-[80%]">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique
-          esse perspiciatis magni cumque deserunt nobis!
-        </p>
+      <div className="mt-20 ">
+              <div className="flex">
+                <b className="border px-5 py-3 text-sm">Description</b>
+                <p className="border px-5 py-3 text-sm">Reviews(122)</p>
+              </div>
+              <div className="flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500">
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium quod amet vero velit provident quam possimus consequatur. Numquam, eligendi! Hic dolore sed quod! Ea deleniti aliquid quaerat quod voluptatibus distinctio! Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque sequi rerum aliquam officia cum eos unde harum, excepturi modi reiciendis! Aliquam ducimus veritatis architecto quibusdam, animi consequatur, praesentium consequuntur assumenda dicta placeat, accusamus numquam voluptatibus.</p>
+              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam enim excepturi suscipit, recusandae debitis sequi quis sed, deserunt vitae saepe temporibus eaque. Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, saepe consequuntur voluptas aut, minus, expedita dolorem atque pariatur nam doloremque sunt tenetur hic.</p>
+              </div>
+      </div>
+
+      <div className="mt-6">
+        <RelatedProduct category={productData.category} subCategory={productData.subCategory}/>
       </div>
     </div>
+  ) : (
+    <div className="opacity-0"></div>
   );
 };
 
