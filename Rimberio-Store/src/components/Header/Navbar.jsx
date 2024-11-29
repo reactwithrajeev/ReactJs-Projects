@@ -1,11 +1,9 @@
 import React, { useContext, useState } from 'react'
 import {assets} from '../../assets/frontend_assets/assets'
 import { NavLink,Link } from 'react-router-dom'
-import { CartContext } from '../../store/cartContext'
 import {ShopContext} from '../../store/shopContext'
 
 const Navbar = () => {
-  let {cart}= useContext(CartContext)
   const [visible,setVisible] = useState(false)
   const {setShowSearchBar, getCartCount} = useContext(ShopContext)
   const handleSearchToggle = () => {
